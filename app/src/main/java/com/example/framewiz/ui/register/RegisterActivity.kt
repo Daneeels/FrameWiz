@@ -1,4 +1,4 @@
-package com.example.framewiz
+package com.example.framewiz.ui.register
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -11,17 +11,25 @@ import android.util.Patterns
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import com.example.framewiz.databinding.ActivityLoginBinding
+import androidx.activity.viewModels
+import com.example.framewiz.R
+import com.example.framewiz.ViewModelFactory
+import com.example.framewiz.data.Result
+import com.example.framewiz.databinding.ActivityRegisterBinding
+import com.example.framewiz.ui.login.LoginViewModel
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
+    private val registerViewModel: RegisterViewModel by viewModels {
+        ViewModelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_register)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupView()
@@ -43,8 +51,56 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setUpAction() {
 
+        var nameValid = false
         var emailValid = false
         var passwordValid = false
+
+        binding.nameEdt.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    if (s.isEmpty()) {
+                        binding.nameEdtLayout.error = " "
+                        binding.nameEdtLayout.setErrorIconOnClickListener {
+                            Toast.makeText(
+                                applicationContext,
+                                "This field is required",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        binding.nameEdtLayout.error = null
+                        nameValid = true
+                        Log.e("name", nameValid.toString())
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                    nameValid = false
+                    if (s.isEmpty()) {
+                        binding.nameEdtLayout.error = " "
+                        binding.nameEdtLayout.setErrorIconOnClickListener {
+                            Toast.makeText(
+                                applicationContext,
+                                "This field is required",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        binding.nameEdtLayout.error = null
+                        nameValid = true
+                        Log.e("name", nameValid.toString())
+                    }
+                }
+            }
+        )
 
         binding.emailEdt.addTextChangedListener(
             object : TextWatcher {
@@ -190,9 +246,22 @@ class LoginActivity : AppCompatActivity() {
             }
         )
 
-        binding.loginBtn.setOnClickListener {
-            if (emailValid && passwordValid) {
-                Toast.makeText(applicationContext, "Amang sam", Toast.LENGTH_SHORT).show()
+        binding.registerBtn.setOnClickListener {
+            val email = binding.emailEdt.text.toString()
+            val nama = binding.nameEdt.text.toString()
+            val password = binding.passwordEdt.text.toString()
+            if (nameValid && emailValid && passwordValid) {
+                registerViewModel.register(email, nama, password).observe(this) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Error -> Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                            is Result.Loading -> Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+                            is Result.Success -> {
+                                Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
             } else {
                 Toast.makeText(applicationContext, "Belum amang sam", Toast.LENGTH_SHORT).show()
             }
@@ -204,4 +273,5 @@ class LoginActivity : AppCompatActivity() {
     private fun isValidEmail(target: CharSequence): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
+
 }
