@@ -3,7 +3,6 @@ package com.example.framewiz.ui.login
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,7 +23,6 @@ import com.example.framewiz.ViewModelFactory
 import com.example.framewiz.data.Result
 import com.example.framewiz.data.api.LoginResponse
 import com.example.framewiz.databinding.ActivityLoginBinding
-import com.example.framewiz.ui.MainActivity
 import com.example.framewiz.ui.camera.CameraActivity
 import com.example.framewiz.ui.register.RegisterActivity
 import java.io.File
