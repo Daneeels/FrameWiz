@@ -26,6 +26,7 @@ import com.example.framewiz.data.api.LoginResponse
 import com.example.framewiz.databinding.ActivityLoginBinding
 import com.example.framewiz.ui.MainActivity
 import com.example.framewiz.ui.camera.CameraActivity
+import com.example.framewiz.ui.register.RegisterActivity
 import java.io.File
 
 class LoginActivity : AppCompatActivity() {
@@ -72,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         setupView()
+        goToRegister()
         setUpAction()
     }
 
@@ -264,6 +266,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isValidEmail(target: CharSequence): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }
+
+    private fun goToRegister(){
+        binding.signUpNavigation.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun saveKey(data: LoginResponse) {

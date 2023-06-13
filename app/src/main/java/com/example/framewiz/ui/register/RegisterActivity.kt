@@ -1,5 +1,6 @@
 package com.example.framewiz.ui.register
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.example.framewiz.R
 import com.example.framewiz.ViewModelFactory
 import com.example.framewiz.data.Result
 import com.example.framewiz.databinding.ActivityRegisterBinding
+import com.example.framewiz.ui.login.LoginActivity
 import com.example.framewiz.ui.login.LoginViewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -33,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        goToLogin()
         setUpAction()
     }
 
@@ -272,6 +275,15 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun isValidEmail(target: CharSequence): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }
+
+    private fun goToLogin(){
+
+        binding.signInNavigation.setOnClickListener{
+            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 }
