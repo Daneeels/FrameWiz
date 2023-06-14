@@ -23,7 +23,7 @@ import com.example.framewiz.ViewModelFactory
 import com.example.framewiz.data.Result
 import com.example.framewiz.data.api.LoginResponse
 import com.example.framewiz.databinding.ActivityLoginBinding
-import com.example.framewiz.ui.camera.CameraActivity
+import com.example.framewiz.ui.main.MainActivity
 import com.example.framewiz.ui.register.RegisterActivity
 import java.io.File
 
@@ -274,11 +274,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveKey(data: LoginResponse) {
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.flags =
-//            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//        startActivity(intent)
-        val intent = Intent(this, CameraActivity::class.java)
-        launcherIntentCameraX.launch(intent)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 }

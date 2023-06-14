@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.framewiz.data.api.ApiService
 import com.example.framewiz.data.api.LoginResponse
+import com.example.framewiz.data.api.PredictResponse
 import com.example.framewiz.data.api.RegisterResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class FrameRepository(
     private val apiService: ApiService,
@@ -37,6 +40,19 @@ class FrameRepository(
             emit(Result.Success(response))
         } catch (e: Exception){
             Log.e("RegisterViewModel", "Register: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun predict(
+        image: MultipartBody.Part
+    ): LiveData<Result<PredictResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.predict(image)
+            emit(Result.Success(response))
+        } catch (e: Exception){
+            Log.e("MainViewModel", "Main: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }

@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import com.example.framewiz.R
 import com.example.framewiz.createFile
 import com.example.framewiz.databinding.ActivityCameraBinding
+import com.example.framewiz.ui.main.MainActivity
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
@@ -63,7 +64,7 @@ class CameraActivity : AppCompatActivity() {
                         "isBackCamera",
                         cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
                     )
-//                    setResult(UploadActivity.CAMERA_X_RESULT, intent)
+                    setResult(MainActivity.CAMERA_X_RESULT, intent)
                     finish()
                 }
             }
