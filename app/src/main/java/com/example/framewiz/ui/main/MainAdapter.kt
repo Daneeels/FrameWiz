@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.framewiz.data.FrameData
-import com.example.framewiz.data.FrameDatas
 import com.example.framewiz.databinding.FrameItemBinding
 
 class MainAdapter(private var listFrame: List<FrameData>) : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {

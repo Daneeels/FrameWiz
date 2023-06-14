@@ -2,18 +2,17 @@ package com.example.framewiz.ui.camera
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.example.framewiz.R
 import com.example.framewiz.createFile
 import com.example.framewiz.databinding.ActivityCameraBinding
 import com.example.framewiz.ui.main.MainActivity

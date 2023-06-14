@@ -8,7 +8,6 @@ import com.example.framewiz.data.api.LoginResponse
 import com.example.framewiz.data.api.PredictResponse
 import com.example.framewiz.data.api.RegisterResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class FrameRepository(
     private val apiService: ApiService,

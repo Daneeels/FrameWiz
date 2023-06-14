@@ -2,7 +2,6 @@ package com.example.framewiz.ui.register
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -14,12 +13,12 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.framewiz.R
 import com.example.framewiz.ViewModelFactory
 import com.example.framewiz.data.Result
 import com.example.framewiz.databinding.ActivityRegisterBinding
 import com.example.framewiz.ui.login.LoginActivity
-import com.example.framewiz.ui.login.LoginViewModel
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -274,7 +273,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                Toast.makeText(applicationContext, "Belum amang sam", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
 
