@@ -11,6 +11,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -245,9 +246,13 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(email, password) .observe(this) { result ->
                     if (result != null) {
                         when (result) {
-                            is Result.Error -> Log.e("LoginViewModel", result.error)
-                            is Result.Loading -> Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+                            is Result.Error -> {
+                                showLoading(false)
+                                Log.e("LoginViewModel", result.error)
+                            }
+                            is Result.Loading -> showLoading(true)
                             is Result.Success -> {
+                                showLoading(false)
                                 saveKey(result.data)
                             }
                         }
@@ -278,4 +283,8 @@ class LoginActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
 }
