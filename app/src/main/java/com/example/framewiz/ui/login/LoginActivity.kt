@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -16,12 +17,12 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.framewiz.R
 import com.example.framewiz.ViewModelFactory
 import com.example.framewiz.data.Result
+import com.example.framewiz.data.UserPreference
 import com.example.framewiz.data.api.LoginResponse
 import com.example.framewiz.databinding.ActivityLoginBinding
 import com.example.framewiz.ui.main.MainActivity
@@ -34,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels {
         ViewModelFactory(this)
     }
+    private lateinit var preference: UserPreference
 
     companion object {
         const val CAMERA_X_RESULT = 200
@@ -43,19 +45,7 @@ class LoginActivity : AppCompatActivity() {
         private const val LOCATION_PERMISSION_REQ_CODE = 1000
 
     }
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
-    }
 
-    private val launcherIntentCameraX = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == CAMERA_X_RESULT) {
-            val myFile = it.data?.getSerializableExtra("picture") as File
-            val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
-
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +53,12 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (!allPermissionsGranted()) {
-            ActivityCompat.requestPermissions(
-                this,
-                REQUIRED_PERMISSIONS,
-                REQUEST_CODE_PERMISSIONS
-            )
+
+        preference = UserPreference(this)
+        if (preference.getLoginStatus()){
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
 
         setupView()
@@ -260,7 +250,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             } else {
-                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Belum amang sam", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -279,6 +269,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveKey(data: LoginResponse) {
+        preference.setToken(data.token)
+        preference.setLoginStatus(true)
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)

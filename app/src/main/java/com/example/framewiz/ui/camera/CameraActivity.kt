@@ -61,7 +61,7 @@ class CameraActivity : AppCompatActivity() {
                     intent.putExtra("picture", photoFile)
                     intent.putExtra(
                         "isBackCamera",
-                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                        cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
                     )
                     setResult(MainActivity.CAMERA_X_RESULT, intent)
                     finish()
