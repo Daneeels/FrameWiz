@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/imageUser"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
@@ -35,7 +35,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpload"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="55dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
@@ -49,7 +49,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnOpenCamera"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="55dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
@@ -66,10 +66,9 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnOpenCamera" />
+            app:layout_constraintTop_toBottomOf="@+id/shapeTV" />
 
         <ImageView
             android:id="@+id/btnLogout"
@@ -81,6 +80,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/shapeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/shape"
+            android:visibility="invisible"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnOpenCamera" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

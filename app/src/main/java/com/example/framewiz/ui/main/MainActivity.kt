@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.framewiz.ViewModelFactory
 import com.example.framewiz.data.FrameData
@@ -149,11 +150,11 @@ class MainActivity : AppCompatActivity() {
                             FrameDatas.frame.forEach { shape ->
                                 Log.e("Frame", shape.shape)
                                 if (result.data.predicted_class.lowercase() == shape.shape.lowercase()) {
-                                    Toast.makeText(this, shape.shape, Toast.LENGTH_SHORT).show()
+                                    binding.shapeTV.isVisible = true
+                                    binding.shapeTV.text = "Your face shape is ${shape.shape}"
                                     runRV(shape.list)
                                 }
                             }
-
                         }
                     }
                 }
