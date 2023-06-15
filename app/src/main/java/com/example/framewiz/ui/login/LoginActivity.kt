@@ -37,16 +37,6 @@ class LoginActivity : AppCompatActivity() {
     }
     private lateinit var preference: UserPreference
 
-    companion object {
-        const val CAMERA_X_RESULT = 200
-
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
-        private const val LOCATION_PERMISSION_REQ_CODE = 1000
-
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -250,7 +240,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             } else {
-                Toast.makeText(applicationContext, "Belum amang sam", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
 

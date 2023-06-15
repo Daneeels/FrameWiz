@@ -22,11 +22,14 @@ import com.example.framewiz.data.FrameData
 import com.example.framewiz.data.FrameDatas
 
 import com.example.framewiz.data.Result
+import com.example.framewiz.data.UserPreference
+import com.example.framewiz.data.api.LoginResponse
 import com.example.framewiz.databinding.ActivityMainBinding
 
 import com.example.framewiz.reduceFileImage
 import com.example.framewiz.rotateBitmap
 import com.example.framewiz.ui.camera.CameraActivity
+import com.example.framewiz.ui.login.LoginActivity
 
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var getFile: File? = null
 
+    private lateinit var preference: UserPreference
 
     companion object {
         const val CAMERA_X_RESULT = 200
@@ -113,13 +117,10 @@ class MainActivity : AppCompatActivity() {
             uploadFile(getFile)
         }
 
-
-
+        preference = UserPreference(this)
 
         setupView()
-
-
-
+        logOut()
     }
 
     private fun uploadFile(file: File?) {
@@ -175,6 +176,18 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val adapter = MainAdapter(frameList)
         binding.frameRV.adapter = adapter
+
+    }
+
+    private fun logOut() {
+
+        binding.btnLogout.setOnClickListener {
+            preference.clearToken()
+            preference.setLoginStatus(false)
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
 
     }
 

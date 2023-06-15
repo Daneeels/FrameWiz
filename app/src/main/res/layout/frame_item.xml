@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             card_view:cardCornerRadius="10dp"
-            android:background="@drawable/stroke"
+            card_view:cardElevation="0dp"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent">
@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
+                android:background="@drawable/stroke"
                 tools:src="@tools:sample/avatars" />
         </androidx.cardview.widget.CardView>
 
