@@ -1,3 +1,6 @@
 [submodule "cloud-computing"]
 	path = cloud-computing
 	url = https://github.com/anisa116/cloud-computing.git
+[submodule "FrameWiz-ML"]
+	path = FrameWiz-ML
+	url = https://github.com/daffayanuardhana/FrameWiz-ML.git
